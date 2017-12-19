@@ -10,7 +10,7 @@ import { FRASES } from './frases-mock';
   styleUrls: ['./painel.component.css']
 })
 export class PainelComponent implements OnInit {
-  
+
   public frases: Frase[] = FRASES;
   public instrucao: string = 'Traduza a frase:';
   public resposta: string = '';
@@ -19,6 +19,8 @@ export class PainelComponent implements OnInit {
   public rodadaFrase: Frase;
 
   public progresso: number = 0;
+
+  public tentativas: number = 3;
 
   constructor() {
     this.atualizaRodada();
@@ -38,9 +40,14 @@ export class PainelComponent implements OnInit {
     if(this.rodadaFrase.frasePtBr == this.resposta){
       this.rodada ++;
       this.progresso = this.progresso + (100 / this.frases.length);
+      this.atualizaRodada();
+    }else {
+      this.tentativas --;
+      if(this.tentativas === - 1)
+        alert("Errrrrrou!!!!!!!!!!");
     }
 
-    this.atualizaRodada();
+
   }
 
 
@@ -48,5 +55,7 @@ export class PainelComponent implements OnInit {
     this.rodadaFrase = this.frases[this.rodada];
     this.resposta = '';
   }
+
+
 
 }
